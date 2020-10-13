@@ -177,7 +177,10 @@ class AutograderSandbox:
             '--oom-kill-disable',
         ]
 
-        if not self.allow_network_access:
+        if self.allow_network_access:
+            # add capability to use tc and related tools
+            create_args += ['--cap-add', 'NET_ADMIN']
+        else:
             # Create the container without a network stack.
             create_args += ['--net', 'none']
 
