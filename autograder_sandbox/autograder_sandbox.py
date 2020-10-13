@@ -116,7 +116,9 @@ class AutograderSandbox:
             '-d',  # Detached
         ]
 
-        if not self.allow_network_access:
+        if self.allow_network_access:
+            create_args += ['--cap-add=NET_ADMIN']
+        else:
             # Create the container without a network stack.
             create_args += ['--net', 'none']
 
